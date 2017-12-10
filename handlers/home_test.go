@@ -1,14 +1,18 @@
 package handlers
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/rumyantseva/advent-2017/version"
 )
 
 func TestHome(t *testing.T) {
 	w := httptest.NewRecorder()
+	version.Release = "test version"
 	home(w, nil)
 
 	resp := w.Result()
@@ -21,7 +25,16 @@ func TestHome(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if have, want := string(greeting), "Hello! Your request was processed."; have != want {
-		t.Errorf("The greeting is wrong. Have: %s, want: %s.", have, want)
+	info := struct {
+		BuildTime string `json:"buildTime"`
+		Commit    string `json:"commit"`
+		Release   string `json:"release"`
+	}{}
+	err = json.Unmarshal(greeting, &info)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if info.Release != version.Release {
+		t.Errorf("Release version is wrong. Have: %s, want: %s", info.Release, version.Release)
 	}
 }

@@ -6,11 +6,15 @@ import (
 	"os"
 
 	"github.com/rumyantseva/advent-2017/handlers"
+	"github.com/rumyantseva/advent-2017/version"
 )
 
 // How to try it: PORT=8000 go run main.go
 func main() {
-	log.Print("Starting the service...")
+	log.Printf(
+		"Starting the service...\ncommit: %s, build time: %s, release: %s",
+		version.Commit, version.BuildTime, version.Release,
+	)
 
 	port := os.Getenv("PORT")
 	if port == "" {
