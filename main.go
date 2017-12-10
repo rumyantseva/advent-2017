@@ -1,20 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/rumyantseva/advent-2017/handlers"
 )
 
 // How to try it: go run main.go
 func main() {
 	log.Print("Starting the service...")
-
-	http.HandleFunc("/home", func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprint(w, "Hello! Your request was processed.")
-	},
-	)
-
+	router := handlers.Router()
 	log.Print("The service is ready to listen and serve.")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":8000", router))
 }
