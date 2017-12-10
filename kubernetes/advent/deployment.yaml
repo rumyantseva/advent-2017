@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .ServiceName }}
+  labels:
+    app: {{ .ServiceName }}
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 50%
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .ServiceName }}
+    spec:
+      containers:
+      - name: {{ .ServiceName }}
+        image: docker.io/webdeva/{{ .ServiceName }}:{{ .Release }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8000
+        resources:
+          limits:
+            cpu: 10m
+            memory: 30Mi
+          requests:
+            cpu: 10m
+            memory: 30Mi
+      terminationGracePeriodSeconds: 30
