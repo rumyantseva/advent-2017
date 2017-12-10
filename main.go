@@ -21,7 +21,7 @@ func main() {
 		log.Fatal("Port is not set.")
 	}
 
-	r := handlers.Router()
+	r := handlers.Router(version.BuildTime, version.Commit, version.Release)
 	log.Print("The service is ready to listen and serve.")
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }
