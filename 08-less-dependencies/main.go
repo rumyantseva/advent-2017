@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/rumyantseva/advent-2017/09-probes/handlers"
-	"github.com/rumyantseva/advent-2017/09-probes/version"
+	"github.com/rumyantseva/advent-2017/08-less-dependencies/handlers"
+	"github.com/rumyantseva/advent-2017/08-less-dependencies/version"
 )
 
 // How to try it: PORT=8000 go run main.go
@@ -21,7 +21,7 @@ func main() {
 		log.Fatal("Port is not set.")
 	}
 
-	r := handlers.Router()
+	r := handlers.Router(version.BuildTime, version.Commit, version.Release)
 	log.Print("The service is ready to listen and serve.")
 	log.Fatal(http.ListenAndServe(":"+port, r))
 }

@@ -1,8 +1,8 @@
-PROJECT?=github.com/rumyantseva/advent-2017/08-version-2
+PROJECT?=github.com/rumyantseva/advent-2017/07-version
 APP?=advent
 PORT?=8000
 
-RELEASE?=0.0.2
+RELEASE?=0.0.1
 COMMIT?=$(shell git rev-parse --short HEAD)
 BUILD_TIME?=$(shell date -u '+%Y-%m-%d_%H:%M:%S')
 

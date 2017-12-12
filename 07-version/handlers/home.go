@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/rumyantseva/advent-2017/08-version/version"
+	"github.com/rumyantseva/advent-2017/07-version/version"
 )
 
 // home is a simple HTTP handler function which writes a response.

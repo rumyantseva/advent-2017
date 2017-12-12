@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/rumyantseva/advent-2017/08-version/version"
+	"github.com/rumyantseva/advent-2017/07-version/version"
 )
 
 func TestHome(t *testing.T) {

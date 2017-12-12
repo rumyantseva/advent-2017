@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/rumyantseva/advent-2017/07-makefile/handlers"
+	"github.com/rumyantseva/advent-2017/06-makefile/handlers"
 )
 
 // How to try it: PORT=8000 go run main.go

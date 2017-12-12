@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/rumyantseva/advent-2017/05-tests/handlers"
+	"github.com/rumyantseva/advent-2017/04-tests/handlers"
 )
 
 // How to try it: go run main.go
