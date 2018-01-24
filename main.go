@@ -33,17 +33,29 @@ func main() {
 		Addr:    ":" + port,
 		Handler: r,
 	}
+
+	// this channel is for graceful shutdown:
+	// if we receive an error, we can send it here to notify the server to be stopped
+	shutdown := make(chan struct{}, 1)
 	go func() {
-		log.Fatal(srv.ListenAndServe())
+		err := srv.ListenAndServe()
+		if err != nil {
+			shutdown <- struct{}{}
+			log.Printf("%v", err)
+		}
 	}()
 	log.Print("The service is ready to listen and serve.")
 
-	killSignal := <-interrupt
-	switch killSignal {
-	case os.Interrupt:
-		log.Print("Got SIGINT...")
-	case syscall.SIGTERM:
-		log.Print("Got SIGTERM...")
+	select {
+	case killSignal := <-interrupt:
+		switch killSignal {
+		case os.Interrupt:
+			log.Print("Got SIGINT...")
+		case syscall.SIGTERM:
+			log.Print("Got SIGTERM...")
+		}
+	case <-shutdown:
+		log.Printf("Got an error...")
 	}
 
 	log.Print("The service is shutting down...")
